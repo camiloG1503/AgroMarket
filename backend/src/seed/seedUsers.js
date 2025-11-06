@@ -17,9 +17,9 @@ const seedUsers = async () => {
     }
 
     const users = [
-      { nombre: "Admin", apellido: "Principal", correo: "admin@agromarket.com", contraseña: "admin123", rol: "admin" },
-      { nombre: "Empleado", apellido: "Perez", correo: "empleado@agromarket.com", contraseña: "empleado123", rol: "empleado" },
-      { nombre: "Cliente", apellido: "Gomez", correo: "cliente@agromarket.com", contraseña: "cliente123", rol: "cliente" },
+      { nombre: "Bairon", apellido: "Gomez", correo: "baironG@agromarket.com", contraseña: "admin123", rol: "admin" },
+      { nombre: "Emerson", apellido: "Chara", correo: "emersonC@agromarket.com", contraseña: "empleado123", rol: "empleado" },
+      { nombre: "Jason", apellido: "Ibarguen", correo: "jasonI@agromarket.com", contraseña: "cliente123", rol: "cliente" },
     ];
 
     for (const u of users) {

@@ -25,10 +25,6 @@ const User = sequelize.define("Usuario", {
     allowNull: false,
   },
   foto_perfil: DataTypes.STRING,
-  fecha_creacion: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
 }, {
   tableName: "Usuario",
   timestamps: false,

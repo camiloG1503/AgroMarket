@@ -23,3 +23,22 @@ export const assignRole = async (req, res) => {
     res.status(500).json({ message: "Error al asignar el rol" });
   }
 };
+
+export const listUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: ["id_usuario", "nombre", "correo", "foto_perfil"],
+      include: [
+        {
+          model: Rol,
+          through: { attributes: [] },
+          attributes: ["nombre_rol"]
+        }
+      ]
+    });
+    res.json(users);
+  } catch (error) {
+    console.error("Error listUsers:", error);
+    res.status(500).json({ message: "Error interno" });
+  }
+};
