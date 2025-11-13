@@ -1,0 +1,235 @@
+.am-auth {
+    --am-primary: #118d1f;
+    --am-success-contrast: #ffffff;
+    --am-overlay: rgba(14,122,45,0.65);
+    --am-radius: 18px;
+}
+
+.am-auth .auth-card {
+    margin: 4rem auto;
+    max-width: 980px;
+    border-radius: var(--am-radius);
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    background: #fff;
+}
+
+.am-auth .auth-card .auth-right-column {
+    min-height: 560px;
+}
+
+@media (max-width: 767.98px) {
+    .am-auth .auth-card { margin: 1.5rem; }
+    .am-auth .auth-card .auth-right-column { min-height: 300px; }
+}
+
+.am-auth .auth-right-column {
+    min-height: 100vh;
+    background-image: url('/images/auth/logo-auth.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.am-auth .auth-right-column::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--am-overlay);
+    mix-blend-mode: multiply;
+}
+
+.am-auth .auth-right-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.am-auth .auth-right-content::before {
+    content: 'AgroMarket';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--am-success-contrast);
+    font-weight: 800;
+    font-size: 40px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    z-index: 3;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+@media (max-width: 991.98px) {
+    .am-auth .auth-right-content::before {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .am-auth .auth-right-content::before {
+        font-size: 24px;
+    }
+}
+
+.am-auth .auth-left-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.am-auth {
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    color: #2b2b2b;
+}
+
+.am-auth-header {
+    padding: 18px 0;
+    background: transparent;
+}
+.am-auth-header .am-auth-brand {
+    font-weight: 800;
+    color: #0b5f1a;
+    font-size: 20px;
+}
+.am-auth-header .am-auth-link {
+    color: #556b58;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: 6px;
+}
+.am-auth-header .am-auth-link:hover {
+    background: rgba(11,126,28,0.06);
+    color: #0b7e1c;
+}
+.am-auth-header .btn-outline-secondary {
+    border-color: rgba(0,0,0,0.08);
+    color: #4b4b4b;
+}
+
+@media (max-width: 575.98px) {
+    .am-auth-header .container { padding-left: 12px; padding-right: 12px; }
+    .am-auth-header .d-none.d-sm-flex { display: none !important; }
+}
+
+.am-auth .card-body {
+    padding: 2.2rem 2.6rem;
+}
+
+.am-auth h5.mb-0 {
+    font-weight: 700;
+    font-size: 20px;
+    color: #0b5f1a;
+}
+
+.am-auth .nav.nav-pills {
+    background: #f1f5f3;
+    padding: 6px;
+    border-radius: 12px;
+}
+
+.am-auth .nav-pills .btn {
+    border: none;
+    padding: 8px 18px;
+    min-width: 110px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #6b6b6b;
+}
+
+.am-auth .nav-pills .btn.btn-light {
+    background: transparent;
+    color: #6b6b6b;
+}
+
+.am-auth .nav-pills .btn.btn-success {
+    background: linear-gradient(180deg, rgba(16,120,31,1) 0%, rgba(12,96,25,1) 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(17, 129, 33, 0.18);
+}
+
+.am-auth .form-label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #4b4b4b;
+}
+
+.am-auth .form-control {
+    border-radius: 8px;
+    border: 1px solid #e6e6e6;
+    padding: 10px 12px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    transition: box-shadow .15s ease, border-color .15s ease, transform .05s ease;
+}
+
+.am-auth .form-control::placeholder { color: #9aa0a6; }
+
+.am-auth .form-control:focus {
+    outline: none;
+    border-color: rgba(17,129,33,0.85);
+    box-shadow: 0 6px 20px rgba(16,120,31,0.12);
+}
+
+.am-auth .input-group .btn {
+    border-radius: 0 8px 8px 0;
+}
+
+.am-auth .btn-success {
+    background: linear-gradient(180deg,#11921f 0%,#0b7e1c 100%);
+    border-color: #0b7e1c;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.am-auth .btn-success:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(11,126,28,0.18);
+}
+
+.am-auth .text-center a { color: #0b7e1c; font-weight: 600; }
+
+.am-auth .alert { border-radius: 8px; }
+
+.am-auth .auth-right-column::before {
+    background: linear-gradient(180deg, rgba(14,122,45,0.68) 0%, rgba(10,80,25,0.65) 100%);
+}
+
+.am-auth .auth-right-content::before {
+    content: 'AgroMarket';
+    font-weight: 800;
+    font-size: 44px;
+    letter-spacing: 0.6px;
+    color: #fff;
+    text-shadow: 0 8px 30px rgba(0,0,0,0.28);
+}
+
+.am-auth .auth-right-content::after {
+    content: '';
+    width: 46px; height: 20px;
+    background-image: url('/images/leaf-white.svg');
+    background-size: contain; background-repeat: no-repeat;
+    position: absolute; top: calc(50% - 46px); left: 50%; transform: translate(-50%, -50%);
+    opacity: 0.98; z-index: 4;
+}
+
+@media (max-width: 991.98px) {
+    .am-auth .auth-right-content::before { font-size: 36px; }
+    .am-auth .auth-right-content::after { width: 36px; height: 16px; top: calc(50% - 40px); }
+}
+
+@media (max-width: 575.98px) {
+    .am-auth .auth-right-content::before { font-size: 22px; }
+    .am-auth .auth-card { margin: 1rem; }
+}
