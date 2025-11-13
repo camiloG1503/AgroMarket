@@ -16,7 +16,6 @@ const ForgotPassword = ({ onSendEmail, onVerifyCode, onReset }) => {
 	const handleSendEmail = (e) => {
 		e.preventDefault()
 		setError(null)
-		// Llamada al backend: onSendEmail({ role: active, email })
 		if (onSendEmail) onSendEmail({ role: active, email })
 		console.log('send code to', { role: active, email })
 		setStep('code')

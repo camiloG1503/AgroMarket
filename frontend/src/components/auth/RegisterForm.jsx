@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const RegisterForm = ({ onSubmit }) => {
@@ -25,7 +25,7 @@ const RegisterForm = ({ onSubmit }) => {
         lastName,
         email,
         phone,
-        roleSelection: role,
+        roleSelection: role || active,
         password,
     }
 
@@ -34,7 +34,16 @@ const RegisterForm = ({ onSubmit }) => {
     } else {
         console.log('register', payload)
     }
+
     }
+
+    useEffect(() => {
+        if (active === 'personal') {
+            setRole('personal')
+        } else {
+            if (role === 'personal') setRole('')
+        }
+    }, [active])
 
     return (
     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '70vh', padding: '2rem' }}>
@@ -93,18 +102,24 @@ const RegisterForm = ({ onSubmit }) => {
                 <input type="email" className="form-control" placeholder="Ingrese su correo" value={email} onChange={(e) => setEmail(e.target.value)} required />
             </div>
 
-            <div className="mb-3">
-                <label className="form-label">Telefono</label>
-                <input type="tel" className="form-control" placeholder="Ingrese su telefono" value={phone} onChange={(e) => setPhone(e.target.value)} />
-            </div>
+            <div className="row g-2 mb-3">
+                <div className="col-12 col-md-6">
+                    <label className="form-label">Telefono</label>
+                    <input type="tel" className="form-control" placeholder="Ingrese su telefono" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                </div>
 
-            <div className="mb-3">
-                <label className="form-label">Rol</label>
-                <select className="form-select" value={role} onChange={(e) => setRole(e.target.value)}>
-                <option value="">Ingrese su rol</option>
-                <option value="comprador">Comprador</option>
-                <option value="vendedor">Vendedor</option>
-                </select>
+                <div className="col-12 col-md-6">
+                    <label className="form-label">Rol</label>
+                    {active === 'usuario' ? (
+                        <select className="form-select" value={role} onChange={(e) => setRole(e.target.value)}>
+                            <option value="">Ingrese su rol</option>
+                            <option value="comprador">Comprador</option>
+                            <option value="vendedor">Vendedor</option>
+                        </select>
+                    ) : (
+                        <input type="text" className="form-control" value="Personal" disabled />
+                    )}
+                </div>
             </div>
 
                         <div className="mb-3">

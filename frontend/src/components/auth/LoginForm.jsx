@@ -15,7 +15,7 @@ const LoginForm = ({ onSubmit }) => {
 
 	return (
 		<div className="d-flex justify-content-center align-items-center" style={{ minHeight: '70vh', padding: '2rem' }}>
-			<div className="card shadow-sm" style={{ width: 380, borderRadius: 12 }}>
+			<div className="card shadow-sm" style={{ width: 420, borderRadius: 12 }}>
 				<div className="card-body p-4">
 					<div className="d-flex justify-content-between align-items-center mb-3">
 						<div className="d-flex align-items-center">
