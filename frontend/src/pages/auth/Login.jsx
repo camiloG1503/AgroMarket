@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import LoginForm from '../../components/auth/LoginForm'
 import AuthLayout from '../../layouts/AuthLayout'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './auth-pages.css'
+import '../../styles/auth/auth-pages.css'
 
 function Login() {
     return (

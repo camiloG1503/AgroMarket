@@ -1,4 +1,3 @@
-/* Global footer styles for the site */
 .site-footer {
     background: linear-gradient(180deg,#093f13 0%, #063611 100%);
     color: #fff;
@@ -38,4 +37,3 @@
 }
 .site-footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.03); }
 .site-footer-bottom .footer-link { color: rgba(255,255,255,0.85); }
-

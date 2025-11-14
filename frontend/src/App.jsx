@@ -4,6 +4,8 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import Footer from './components/common/Footer'
+import Profile from './pages/profile/Profile'
+import AuthLayout from './layouts/AuthLayout'
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
       <Route path="/Login" element={<Login />} />
       <Route path="/Register" element={<Register />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
+      <Route path="/profile" element={<AuthLayout><Profile /></AuthLayout>} />
     </Routes>
     <Footer />
   </>
