@@ -3,7 +3,9 @@ import ProfileTabs from '../../components/profile/ProfileTabs'
 import Sidebar from '../../components/profile/layout/Sidebar'
 import PersonalData from './PersonalData'
 import Favorites from './Favorites'
+import ShoppingCart from './ShoppingCart'
 import Purchases from './Purchases'
+import HeaderIcons from '../../components/common/HeaderIcons'
 
 export default function Profile() {
 	const [user, setUser] = useState(null)
@@ -57,11 +59,9 @@ export default function Profile() {
 						<h4 className="mb-0">Bienvenido, {user?.profile?.firstName || 'Usuario'}</h4>
 						<small className="text-muted">Viernes, 25 diciembre 2025</small>
 					</div>
-					<div className="d-flex align-items-center gap-2">
-						<div className="header-icon">🔔</div>
-						<div className="header-icon">🛒</div>
-						<div className="header-avatar">{user?.profile?.avatar ? <img src={user.profile.avatar} alt="avatar" style={{ width: 34, height: 34, borderRadius: 999 }} /> : <div style={{ width: 34, height: 34, borderRadius: 999, background: '#ddd' }} />}</div>
-					</div>
+						<div className="d-flex align-items-center gap-2">
+							<HeaderIcons />
+						</div>
 				</div>
 
 				<div style={{ marginTop: 12, marginBottom: 18 }}>
@@ -70,23 +70,11 @@ export default function Profile() {
 
 				{tab === 'personal' && <PersonalData />}
 
-				{tab === 'favorites' && (
-					<div className="profile-card">
-						<p>Favoritos (pendiente implementar)</p>
-					</div>
-				)}
+				{tab === 'favorites' && <Favorites />}
 
-				{tab === 'cart' && (
-					<div className="profile-card">
-						<p>Carrito (pendiente implementar)</p>
-					</div>
-				)}
+				{tab === 'cart' && <ShoppingCart />}
 
-				{tab === 'purchases' && (
-					<div className="profile-card">
-						<p>Comprados (pendiente implementar)</p>
-					</div>
-				)}
+				{tab === 'purchases' && <Purchases />}
 			</main>
 		</div>
 	)

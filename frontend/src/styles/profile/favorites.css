@@ -1,0 +1,97 @@
+/* favorites.css - estilos específicos para la página de Favoritos */
+:root{
+  --am-green: #0a7c1b;
+  --am-green-soft: #e6fbe6;
+  --am-gray-100: #f6f7f8;
+  --am-border: #e6e6e6;
+  --am-radius: 12px;
+}
+
+.favorites-page .profile-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: var(--am-radius);
+  box-shadow: 0 4px 12px rgba(12,12,12,0.06);
+}
+
+.favorites-page .favorites-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.favorites-page .favorites-search { width: 240px; }
+
+.favorites-page .category-list { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+.favorites-page .category-btn { border-radius:20px; padding:8px 14px; border:1px solid var(--am-border); background: #f7f7f7; color:#333; font-weight:600; }
+.favorites-page .category-btn.active { background: var(--am-green-soft); color: var(--am-green); border-color: transparent; }
+
+.favorites-page table { background: transparent; border-collapse: separate; border-spacing: 0; }
+.favorites-page thead th { background: #f3f4f4; border-bottom: 1px solid var(--am-border); color:#666; font-weight:700; }
+.favorites-page tbody td { border-bottom: 1px solid var(--am-border); vertical-align: middle; }
+
+/* Header row above the list to mimic the Figma table header */
+.favorites-page .favorites-header {
+  display: grid;
+  grid-template-columns: 1fr 120px 120px 120px;
+  align-items: center;
+  gap: 12px;
+  background: #efefef;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+.favorites-page .favorites-header .header-col { color: #666; font-weight: 700; padding: 6px 8px; }
+
+.favorites-page .product-thumb { width:52px; height:52px; border-radius:8px; background:#f0f0f0; display:inline-block; }
+
+.favorites-page .action-btn { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:8px; }
+.favorites-page .action-btn .fa-heart, .favorites-page .action-btn svg { pointer-events:none; }
+
+.favorites-page .btn-light { background:#fff; border:1px solid var(--am-border); }
+.favorites-page .pagination-info { color:#6b6b6b; font-size:0.9rem; }
+
+/* Ajustes responsive */
+@media (max-width:900px){
+  .favorites-page .favorites-toolbar { flex-direction:column; align-items:stretch; gap:8px; }
+  .favorites-page .favorites-search { width:100%; }
+}
+
+/* pequeñas correcciones para integrarlo con profile-pages.css */
+.favorites-page .profile-card { margin-bottom: 12px; }
+
+/* Lista estilo Figma: filas separadas con borde suave y radius */
+.favorites-page .favorites-list { display:flex; flex-direction:column; gap:10px; }
+.favorites-page .favorite-row {
+  display: grid;
+  grid-template-columns: 1fr 120px 120px 120px;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: #fff;
+  border: 1px solid var(--am-border);
+  border-radius: 10px;
+}
+.favorites-page .favorite-left { display:flex; align-items:center; gap:12px; }
+.favorites-page .favorite-middle, .favorites-page .favorite-units { color:#333; }
+.favorites-page .favorite-actions { display:flex; gap:8px; align-items:center; }
+.favorites-page .favorite-row .action-btn { width:40px; height:40px; display:inline-flex; align-items:center; justify-content:center; border-radius:8px; }
+.favorites-page .favorite-row .action-btn svg { pointer-events:none; }
+.favorites-page .favorite-row .action-btn.btn-outline-secondary { background:#fff; border:1px solid var(--am-border); }
+.favorites-page .favorite-row .action-btn[title="Quitar de favoritos"] { color:#e53935; }
+
+/* toolbar */
+.favorites-page .favorites-toolbar .btn-success { background: linear-gradient(180deg, var(--am-green) 0%, #066515 100%); border-color: transparent; }
+
+/* pagination */
+.favorites-page .pagination-controls { display:flex; gap:8px; align-items:center; }
+.favorites-page .pagination-controls .btn { border-radius:6px; }
+.favorites-page .pagination-controls .btn-light { background:#fff; border:1px solid var(--am-border); }
+.favorites-page .pagination-info { color: var(--am-green); font-weight:600; }
+
+@media (max-width:900px){
+  .favorites-page .favorite-middle, .favorites-page .favorite-units { text-align: center; }
+  .favorites-page .favorite-row { padding: 12px; }
+}
