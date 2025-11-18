@@ -5,7 +5,9 @@ import User from "../models/User.js";
 import Rol from "../models/Rol.js";
 import { generateToken } from "../utils/generateToken.js";
 
-// REGISTRO Y LOGIN
+/* ==========================
+   REGISTRO Y LOGIN
+========================== */
 export const register = async (req, res) => {
   try {
     const { nombre, apellido, correo, contraseña } = req.body;
@@ -68,7 +70,9 @@ export const login = async (req, res) => {
   }
 };
 
-// RECUPERAR CONTRASEÑA
+/* ==========================
+   RECUPERAR CONTRASEÑA
+========================== */
 export const forgotPassword = async (req, res) => {
   try {
     const { correo } = req.body;
@@ -83,10 +87,10 @@ export const forgotPassword = async (req, res) => {
     const token = jwt.sign({ id_usuario: user.id_usuario }, process.env.JWT_SECRET, {
       expiresIn: "15m",
     });
-    
+
     /*
     const baseUrl = process.env.FRONTEND_URL || "http://localhost:5173";
-    const resetUrl = `${baseUrl}/reset-password/${token}`;
+    const resetUrl = ${baseUrl}/reset-password/${token};
     */ 
    
     // Crear transporte SMTP real
@@ -101,7 +105,7 @@ export const forgotPassword = async (req, res) => {
     });
 
     const mailOptions = {
-      from: process.env.SMTP_FROM || `"Soporte AgroMarket" <${process.env.SMTP_USER}>`,
+      from: process.env.SMTP_FROM || `Soporte AgroMarket <${process.env.SMTP_USER}>`,
       to: correo,
       subject: "Recuperación de contraseña - AgroMarket",
       html: `
@@ -129,7 +133,9 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-//   RESTABLECER CONTRASEÑA
+/* ==========================
+   RESTABLECER CONTRASEÑA
+========================== */
 export const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
@@ -153,7 +159,10 @@ export const resetPassword = async (req, res) => {
   }
 };
 
-// CAMBIAR CONTRASEÑA (auth)
+
+/* ==========================
+   CAMBIAR CONTRASEÑA (auth)
+========================== */
 export const changePassword = async (req, res) => {
   try {
     const { contrasena_actual, nueva_contrasena, confirmar_contrasena } = req.body;

@@ -5,8 +5,6 @@ import User from "../models/User.js";
 import Rol from "../models/Rol.js";
 import UsuarioRol from "../models/UsuarioRol.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 /* ────────────────────────────────
    ACCIONES ADMINISTRATIVAS
@@ -127,24 +125,22 @@ export const uploadProfilePicture = async (req, res) => {
     const user = await User.findByPk(req.user.id_usuario);
     if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
 
-    // Si ya tiene una foto anterior, eliminarla
+    // Eliminar imagen anterior si existe
     if (user.foto_perfil) {
-      const oldPath = path.join(__dirname, "../uploads/usuario", user.foto_perfil);
-      if (fs.existsSync(oldPath)) {
-        fs.unlinkSync(oldPath); // elimina el archivo viejo
-      }
+      const oldPath = path.join("src/uploads/usuarios", user.foto_perfil);
+      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
     }
 
-    // Guardar el nuevo nombre del archivo
+    // Guardar la nueva imagen
     user.foto_perfil = req.file.filename;
     await user.save();
 
-    res.status(200).json({
-      message: "Foto de perfil actualizada correctamente",
+    res.json({
+      message: "Foto de perfil actualizada",
       foto_perfil: user.foto_perfil,
     });
   } catch (error) {
-    console.error("Error uploadProfilePicture:", error);
-    res.status(500).json({ message: "Error al subir foto de perfil" });
+    console.error("uploadProfilePicture error:", error);
+    res.status(500).json({ message: "Error al subir imagen" });
   }
 };

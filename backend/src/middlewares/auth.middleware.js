@@ -19,3 +19,14 @@ export const isAdmin = (req, res, next) => {
   }
   next();
 };
+
+export const isLogistico = (req, res, next) => {
+  if (req.user.rol !== "logistico") {
+    return res.status(403).json({ message: "Acceso denegado. Solo usuarios logísticos." });
+  }
+  next();
+};
+
+
+
+
