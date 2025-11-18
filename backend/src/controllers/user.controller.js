@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
    ACCIONES ADMINISTRATIVAS
 ──────────────────────────────── */
 
-// 🔹 Asignar rol a usuario
+// Asignar rol a usuario
 export const assignRole = async (req, res) => {
   try {
     const { id_usuario, nombre_rol } = req.body;
@@ -38,7 +38,7 @@ export const assignRole = async (req, res) => {
   }
 };
 
-// 🔹 Listar usuarios (solo admin)
+// Listar usuarios (solo admin)
 export const listUsers = async (req, res) => {
   try {
     const users = await User.findAll({
@@ -58,7 +58,7 @@ export const listUsers = async (req, res) => {
   }
 };
 
-// 🔹 Eliminar cuenta de usuario (solo admin)
+// Eliminar cuenta de usuario (solo admin)
 export const deleteAccount = async (req, res) => {
   try {
     const { id } = req.params;
@@ -83,7 +83,7 @@ export const deleteAccount = async (req, res) => {
    ACCIONES DEL USUARIO
 ──────────────────────────────── */
 
-// 📄 Ver perfil
+// Ver perfil
 export const getUserProfile = async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id_usuario, {
@@ -105,7 +105,7 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
-// ✏️ Actualizar perfil
+// Actualizar perfil
 export const updateProfile = async (req, res) => {
   try {
     const { nombre, apellido } = req.body;
@@ -121,7 +121,7 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-// 📸 Subir foto de perfil
+// Subir foto de perfil
 export const uploadProfilePicture = async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id_usuario);
@@ -129,7 +129,7 @@ export const uploadProfilePicture = async (req, res) => {
 
     // Si ya tiene una foto anterior, eliminarla
     if (user.foto_perfil) {
-      const oldPath = path.join(__dirname, "../uploads", user.foto_perfil);
+      const oldPath = path.join(__dirname, "../uploads/usuario", user.foto_perfil);
       if (fs.existsSync(oldPath)) {
         fs.unlinkSync(oldPath); // elimina el archivo viejo
       }

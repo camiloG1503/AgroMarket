@@ -12,7 +12,7 @@ import multer from "multer";
 
 const router = Router();
 
-// ⚙️ Configuración de multer
+// Configuración de multer
 const storage = multer.diskStorage({
   destination: "src/uploads",
   filename: (req, file, cb) => {

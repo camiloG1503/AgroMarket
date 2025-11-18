@@ -5,9 +5,7 @@ import User from "../models/User.js";
 import Rol from "../models/Rol.js";
 import { generateToken } from "../utils/generateToken.js";
 
-/* ==========================
-   🔐 REGISTRO Y LOGIN
-========================== */
+// REGISTRO Y LOGIN
 export const register = async (req, res) => {
   try {
     const { nombre, apellido, correo, contraseña } = req.body;
@@ -70,9 +68,7 @@ export const login = async (req, res) => {
   }
 };
 
-/* ==========================
-   🔄 RECUPERAR CONTRASEÑA
-========================== */
+// RECUPERAR CONTRASEÑA
 export const forgotPassword = async (req, res) => {
   try {
     const { correo } = req.body;
@@ -87,10 +83,12 @@ export const forgotPassword = async (req, res) => {
     const token = jwt.sign({ id_usuario: user.id_usuario }, process.env.JWT_SECRET, {
       expiresIn: "15m",
     });
-
+    
+    /*
     const baseUrl = process.env.FRONTEND_URL || "http://localhost:5173";
     const resetUrl = `${baseUrl}/reset-password/${token}`;
-
+    */ 
+   
     // Crear transporte SMTP real
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -108,11 +106,15 @@ export const forgotPassword = async (req, res) => {
       subject: "Recuperación de contraseña - AgroMarket",
       html: `
         <p>Hola ${user.nombre},</p>
-        <p>Has solicitado recuperar tu contraseña. Haz clic en el siguiente enlace para restablecerla:</p>
-        <p><a href="${resetUrl}" target="_blank">${resetUrl}</a></p>
-        <p>Este enlace es válido por 15 minutos.</p>
+        <p>Has solicitado recuperar tu contraseña. Utiliza el siguiente token para restablecerla:</p>
+        <div style="background-color: #f5f5f5; padding: 15px; margin: 20px 0; border-radius: 5px; font-family: monospace; font-size: 14px; word-break: break-all;">
+          <strong>Token:</strong><br>
+          ${token}
+        </div>
+        <p><strong>Este token es válido por 15 minutos.</strong></p>
+        <p>Para restablecer tu contraseña, deberás enviar una petición POST al endpoint correspondiente con este token.</p>
         <br>
-        <p>Atentamente,<br>Equipo AgroMarket 🌿</p>
+        <p>Atentamente,<br>Equipo AgroMarket. </p>
       `,
     };
 
@@ -127,9 +129,7 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-/* ==========================
-   🆕 RESTABLECER CONTRASEÑA
-========================== */
+//   RESTABLECER CONTRASEÑA
 export const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
@@ -153,9 +153,7 @@ export const resetPassword = async (req, res) => {
   }
 };
 
-/* ==========================
-   🔁 CAMBIAR CONTRASEÑA (auth)
-========================== */
+// CAMBIAR CONTRASEÑA (auth)
 export const changePassword = async (req, res) => {
   try {
     const { contrasena_actual, nueva_contrasena, confirmar_contrasena } = req.body;
