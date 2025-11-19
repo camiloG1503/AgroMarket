@@ -1,0 +1,49 @@
+/* Styles for Ordenes page */
+.ordenes-wrap { }
+
+.ordenes-controls { display:flex; justify-content:space-between; gap:12px; align-items:center }
+.ordenes-search input { width:320px; padding:10px 12px; border-radius:8px; border:1px solid #e6e6e6 }
+.ordenes-sort { display:flex; align-items:center; gap:8px }
+.ordenes-sort select { padding:8px 10px; border-radius:6px; border:1px solid #e6e6e6 }
+
+.ordenes-filters { display:flex; gap:10px; justify-content:center }
+.ordenes-pill { padding:8px 18px; border-radius:20px; background:#f4f7f5; border:none; cursor:pointer }
+.ordenes-pill.active { background:#dff8e7; color:#0b7a2a }
+
+.ordenes-table { padding:0; border-radius:10px; overflow:hidden }
+.ordenes-table-header { background:#efefef; padding:12px 16px; font-weight:600; color:#666 }
+.ordenes-table-header .col { flex:1; text-align:left; padding-left:12px }
+.ordenes-table-header .usuario { flex:3; text-align:left; padding-left:8px }
+.ordenes-table-header .total { flex:1; text-align:left; padding-left:16px }
+.ordenes-table-header .estado { flex:1; text-align:center }
+.ordenes-table-header .accion { flex:1; text-align:center }
+
+.ordenes-table-body { background:#fff }
+.orden-row { padding:14px 16px; border-bottom:1px solid #eee; display:flex; align-items:center }
+.orden-row .col { flex:1 }
+.orden-row .usuario { flex:3; display:flex; align-items:center; text-align:left }
+.orden-row .total { text-align:left; padding-left:12px; color:#333 }
+.avatar { width:40px; height:40px; background:#e9ecef; border-radius:8px }
+
+.badge { padding:6px 10px; border-radius:8px; color:#fff; font-weight:700 }
+.badge-yellow { background:#f2d84b; color:#222 }
+.badge-green { background:#17c964 }
+.badge-red { background:#ff4d4f }
+
+.icon-btn { background:transparent; border:none; margin-left:8px; color:#6b6b6b; cursor:pointer; font-size:16px }
+
+.ordenes-footer { padding:10px 8px }
+
+/* Remove focus outlines that cause blue border lines in some browsers */
+.ordenes-table-header:focus,
+.ordenes-table:focus,
+.ordenes-pill:focus,
+.ordenes-filters:focus,
+.icon-btn:focus,
+.nav-link:focus,
+button:focus,
+input:focus,
+select:focus {
+	outline: none !important;
+	box-shadow: none !important;
+}

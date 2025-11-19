@@ -1,0 +1,133 @@
+/* Dashboard styles (minimal, designed to match existing project look) */
+.am-dashboard {
+  color: #222;
+}
+
+.am-dashboard-header h2 {
+  margin: 0 0 4px 0;
+  font-weight: 700;
+}
+
+.am-dashboard-tabs {
+  display: flex;
+  gap: 12px;
+  background: #f2f4f3;
+  padding: 12px;
+  border-radius: 18px;
+}
+
+.am-tab {
+  padding: 10px 24px;
+  border-radius: 14px;
+  background: transparent;
+  color: #6b6b6b;
+  min-width: 120px;
+  text-align: center;
+}
+
+.am-tab.active {
+  background: #dff8e7;
+  color: #0b7a2a;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+}
+
+.am-stats-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 22px;
+  min-height: 120px;
+  box-shadow: 0 4px 10px rgba(16,24,40,0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.am-stats-card.highlighted {
+  background: #0ea64d;
+  color: #fff;
+}
+
+.am-stats-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.am-stats-card-value {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.am-manufacturers .table td {
+  vertical-align: middle;
+}
+
+.am-manufacturers {
+  border-radius: 12px;
+  background: #fff;
+}
+
+.am-manufacturers .card {
+  border: none;
+}
+
+.am-manufacturers thead th {
+  background: #f1f2f2;
+  border-radius: 8px;
+  padding: 14px;
+  color: #6b6b6b;
+}
+
+.am-manufacturers tbody tr {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.manufacturer-avatar {
+  width: 40px;
+  height: 40px;
+  background: #e9ecef;
+  border-radius: 8px;
+}
+
+.action-icons svg {
+  color: #6b6b6b;
+  cursor: pointer;
+}
+
+.pagination-controls .btn {
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+}
+
+/* Modal styles for Add Manufacturer */
+.am-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.am-modal {
+  width: 720px;
+  max-width: 95%;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.2);
+}
+
+.am-modal-header { display:flex; justify-content:space-between; align-items:center }
+.am-modal-close { background:transparent; border:none; font-size:18px }
+.am-upload-row { display:flex; gap:16px; align-items:center; margin-bottom:12px }
+.am-upload-preview { width:72px; height:72px; border-radius:8px; background:#f1f1f1; display:flex; align-items:center; justify-content:center; overflow:hidden }
+.am-upload-preview img { width:100%; height:100%; object-fit:cover }
+.am-upload-empty { font-size:24px; opacity:0.6 }
+.am-modal-body { margin-top:8px }
+.am-modal-footer { margin-top:16px }
+
+

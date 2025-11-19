@@ -12,6 +12,27 @@ export default function Profile() {
 	const [loading, setLoading] = useState(true)
 	const [tab, setTab] = useState('personal')
 
+	// Sincronizar pestaña con fragmento (hash) de la URL
+	useEffect(() => {
+		function hashToTab(hash) {
+			if (!hash) return 'personal'
+			const h = hash.replace('#', '').toLowerCase()
+			if (h === 'favoritos' || h === 'favorites') return 'favorites'
+			if (h === 'carrito' || h === 'cart') return 'cart'
+			if (h === 'comprados' || h === 'purchases') return 'purchases'
+			return 'personal'
+		}
+
+		setTab(hashToTab(window.location.hash))
+
+		function onHashChange() {
+			setTab(hashToTab(window.location.hash))
+		}
+
+		window.addEventListener('hashchange', onHashChange)
+		return () => window.removeEventListener('hashchange', onHashChange)
+	}, [])
+
 	useEffect(() => {
 		// Carga un usuario mock desde localStorage si existe. En integración real,
 		// reemplazar por `AuthContext` o llamada a API para obtener `user`/`profile`.

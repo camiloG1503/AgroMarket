@@ -6,6 +6,9 @@ import ForgotPassword from './pages/auth/ForgotPassword'
 import Footer from './components/common/Footer'
 import Profile from './pages/profile/Profile'
 import AuthLayout from './layouts/AuthLayout'
+import Dashboard from './pages/dashboard/Dashboard'
+import Ordenes from './pages/dashboard/Ordenes'
+import Users from './pages/dashboard/Users'
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
       <Route path="/Register" element={<Register />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
       <Route path="/profile" element={<AuthLayout><Profile /></AuthLayout>} />
+      <Route path="/dashboard" element={<AuthLayout><Dashboard /></AuthLayout>} />
+      <Route path="/dashboard/ordenes" element={<AuthLayout><Ordenes /></AuthLayout>} />
+      <Route path="/dashboard/usuarios" element={<AuthLayout><Users /></AuthLayout>} />
     </Routes>
     <Footer />
   </>

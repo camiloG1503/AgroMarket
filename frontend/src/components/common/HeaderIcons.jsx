@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaHome, FaEnvelope, FaShoppingCart } from 'react-icons/fa'
+import { FaHome, FaBoxOpen, FaShoppingCart } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import '../../styles/common/header-icons.css'
 
@@ -28,8 +28,20 @@ export default function HeaderIcons() {
     }, [])
 
     function goHome() { navigate('/') }
-    function goMessages() { navigate('/messages') }
-  function goCart() { navigate('/profile'); /* user will navigate to cart tab */ }
+    function goPurchases() {
+        if (window.location.pathname === '/profile') {
+            window.location.hash = '#comprados'
+        } else {
+            navigate('/profile#comprados')
+        }
+    }
+  function goCart() {
+        if (window.location.pathname === '/profile') {
+            window.location.hash = '#carrito'
+        } else {
+            navigate('/profile#carrito')
+        }
+    }
     function goProfile() { navigate('/profile') }
 
     return (
@@ -38,10 +50,8 @@ export default function HeaderIcons() {
         <FaHome className="hi-icon" />
         </button>
 
-        <button className="hi-btn" aria-label="Mensajes" onClick={goMessages}>
-        <FaEnvelope className="hi-icon" />
-        {/* optional notification dot */}
-        {hasNotifications && <span className="hi-badge hi-badge--notif" />}
+        <button className="hi-btn" aria-label="Comprados" onClick={goPurchases}>
+        <FaBoxOpen className="hi-icon" />
         </button>
 
         <button className="hi-btn" aria-label="Carrito" onClick={goCart}>
