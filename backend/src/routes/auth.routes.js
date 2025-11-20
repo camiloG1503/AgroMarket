@@ -6,10 +6,11 @@ const router = Router();
 
 router.post("/register", register);
 router.post("/login", login);
+// Rutas para recuperación y cambio de contraseña
 router.post("/forgot-password", forgotPassword);
-// reset with token in URL (frontend will POST new password to this endpoint)
 router.post("/reset-password/:token", resetPassword);
-// change password for authenticated users
+
+// Ruta para cambiar la contraseña (requiere autenticación)
 router.post("/change-password", verifyToken, changePassword);
 
 export default router;

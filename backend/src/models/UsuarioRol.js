@@ -17,13 +17,11 @@ const UsuarioRol = sequelize.define("Usuario_Rol", {
       type: DataTypes.INTEGER,
       allowNull: false,
     }
-  }, {
+  }, 
+  {
     tableName: "Usuario_Rol",
     timestamps: false,
-});
-
-User.belongsToMany(Rol, {through: UsuarioRol, foreignKey: "FK_id_usuario"});
-Rol.belongsToMany(User, {through: UsuarioRol, foreignKey: "FK_id_rol"});
-
+  }
+);
 
 export default UsuarioRol;

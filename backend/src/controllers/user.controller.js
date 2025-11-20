@@ -5,14 +5,12 @@ import User from "../models/User.js";
 import Rol from "../models/Rol.js";
 import UsuarioRol from "../models/UsuarioRol.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 /* ────────────────────────────────
    ACCIONES ADMINISTRATIVAS
 ──────────────────────────────── */
 
-// 🔹 Asignar rol a usuario
+// Asignar rol a usuario
 export const assignRole = async (req, res) => {
   try {
     const { id_usuario, nombre_rol } = req.body;
@@ -38,7 +36,7 @@ export const assignRole = async (req, res) => {
   }
 };
 
-// 🔹 Listar usuarios (solo admin)
+// Listar usuarios (solo admin)
 export const listUsers = async (req, res) => {
   try {
     const users = await User.findAll({
@@ -58,7 +56,7 @@ export const listUsers = async (req, res) => {
   }
 };
 
-// 🔹 Eliminar cuenta de usuario (solo admin)
+// Eliminar cuenta de usuario (solo admin)
 export const deleteAccount = async (req, res) => {
   try {
     const { id } = req.params;
@@ -83,7 +81,7 @@ export const deleteAccount = async (req, res) => {
    ACCIONES DEL USUARIO
 ──────────────────────────────── */
 
-// 📄 Ver perfil
+// Ver perfil
 export const getUserProfile = async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id_usuario, {
@@ -105,7 +103,7 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
-// ✏️ Actualizar perfil
+// Actualizar perfil
 export const updateProfile = async (req, res) => {
   try {
     const { nombre, apellido } = req.body;
@@ -121,30 +119,28 @@ export const updateProfile = async (req, res) => {
   }
 };
 
-// 📸 Subir foto de perfil
+// Subir foto de perfil
 export const uploadProfilePicture = async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id_usuario);
     if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
 
-    // Si ya tiene una foto anterior, eliminarla
+    // Eliminar imagen anterior si existe
     if (user.foto_perfil) {
-      const oldPath = path.join(__dirname, "../uploads", user.foto_perfil);
-      if (fs.existsSync(oldPath)) {
-        fs.unlinkSync(oldPath); // elimina el archivo viejo
-      }
+      const oldPath = path.join("src/uploads/usuarios", user.foto_perfil);
+      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
     }
 
-    // Guardar el nuevo nombre del archivo
+    // Guardar la nueva imagen
     user.foto_perfil = req.file.filename;
     await user.save();
 
-    res.status(200).json({
-      message: "Foto de perfil actualizada correctamente",
+    res.json({
+      message: "Foto de perfil actualizada",
       foto_perfil: user.foto_perfil,
     });
   } catch (error) {
-    console.error("Error uploadProfilePicture:", error);
-    res.status(500).json({ message: "Error al subir foto de perfil" });
+    console.error("uploadProfilePicture error:", error);
+    res.status(500).json({ message: "Error al subir imagen" });
   }
 };

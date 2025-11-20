@@ -33,10 +33,10 @@ const seedUsers = async () => {
       await user.addRol(rol);
     }
 
-    console.log("🌱 Seed completado correctamente");
+    console.log("Seed completado correctamente");
     process.exit(0);
   } catch (error) {
-    console.error("❌ Error al insertar usuarios:", error);
+    console.error("Error al insertar usuarios:", error);
     process.exit(1);
   }
 };
