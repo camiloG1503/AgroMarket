@@ -1,0 +1,685 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Puedes conservar tus resets globales */
+:root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #213547;
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background: #fff;
+    color: #213547;
+}
+
+/* Elimina aquí las clases simuladas (.container, .flex, .hidden, .items-center, .justify-between, .gap-*, .font-bold, .text-center y los @media de md:*) */
+
+/* Navbar propio, Hero, Recent, Product row, etc. (conserva todo) */
+.agro-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: #fff;
+    border-bottom: 3px solid #15803d;
+    box-shadow: 0 4px 14px -6px rgba(0, 0, 0, .15);
+}
+
+.agro-navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+}
+
+.agro-logo {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    text-decoration: none;
+}
+
+.agro-logo-circle {
+    width: 42px;
+    height: 42px;
+    background: #15803d;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.agro-logo-text {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: #166534;
+}
+
+.nav-search-wrap {
+    flex: 1;
+    max-width: 640px;
+    margin: 0 1.2rem;
+}
+
+.nav-search {
+    width: 100%;
+    padding: .65rem 1rem;
+    border: 2px solid #d1d5db;
+    border-radius: 999px;
+    font-size: .9rem;
+    outline: none;
+    transition: .25s;
+}
+
+.nav-search:focus {
+    border-color: #15803d;
+}
+
+.nav-search-btn {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #15803d;
+    color: #fff;
+    border: none;
+    padding: .55rem .7rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.nav-search-btn:hover {
+    background: #166534;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+}
+
+.nav-link {
+    font-size: .85rem;
+    font-weight: 600;
+    color: #374151;
+    text-decoration: none;
+    transition: .25s;
+}
+
+.nav-link:hover {
+    color: #15803d;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    border-left: 1px solid #e5e7eb;
+    padding-left: 1.1rem;
+}
+
+.icon-btn {
+    position: relative;
+    color: #475569;
+    transition: .25s;
+    display: inline-flex;
+}
+
+.icon-btn:hover {
+    color: #15803d;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #dc2626;
+    color: #fff;
+    font-size: .6rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulseBadge 1.2s infinite;
+}
+
+@keyframes pulseBadge {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+/* Separación para que el hero no se pegue */
+.hero-offset {
+    margin-top: 6px;
+}
+
+/* Ajuste del hero (si deseas más espacio) */
+.hero-banner {
+    position: relative;
+    width: 100%;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    isolation: isolate;
+}
+
+@media (min-width: 768px) {
+    .hero-banner {
+        min-height: 520px;
+    }
+}
+
+.hero-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.35) 40%, rgba(0, 0, 0, 0.15) 70%, rgba(0, 0, 0, 0.05) 100%);
+    z-index: 0;
+}
+
+.hero-banner__content {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    padding: 0 1rem;
+}
+
+.hero-title {
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0 0 1rem;
+    color: #fff;
+}
+
+.hero-sub {
+    font-size: 1.05rem;
+    color: #e2fce9;
+    margin: 0 0 2rem;
+    font-weight: 400;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.hero-btn {
+    background: #15803d;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.9rem 1.6rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .25s, transform .25s;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 16px -4px rgba(0, 0, 0, .35);
+}
+
+.hero-btn:hover {
+    background: #166534;
+    transform: translateY(-2px);
+}
+
+.hero-btn.alt {
+    background: #ea580c;
+}
+
+.hero-btn.alt:hover {
+    background: #c2410c;
+}
+
+/* Clases personalizadas para AgroMarket */
+.shadow-text {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Transiciones suaves para imágenes */
+.transition-transform {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Soporte para animaciones de skeleton */
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
+
+    a:hover {
+        color: #747bff;
+    }
+
+    button {
+        background-color: #f9f9f9;
+    }
+}
+
+/* Fondo verde sección recientes */
+.recent-section {
+    background: linear-gradient(135deg, #0d3f1f 0%, #0a5a29 60%, #0a5a29 100%);
+    border-radius: 32px;
+    padding: 48px 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.recent-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.08), transparent 60%),
+        radial-gradient(circle at 85% 70%, rgba(255, 255, 255, 0.06), transparent 65%);
+    pointer-events: none;
+}
+
+.recent-carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(220px, 1fr);
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+}
+
+.recent-carousel>* {
+    scroll-snap-align: start;
+}
+
+/* Tarjetas destacadas */
+.featured-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.featured-card {
+    position: relative;
+    min-height: 180px;
+    border-radius: 24px;
+    padding: 20px;
+    color: #fff;
+    font-weight: 600;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-shadow: 0 8px 18px -6px rgba(0, 0, 0, .35);
+    transition: .35s;
+}
+
+.featured-card:hover {
+    transform: translateY(-4px);
+}
+
+.featured-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, .55), rgba(0, 0, 0, .15));
+}
+
+/* Patrón opiniones */
+.bg-circles {
+    background:
+        radial-gradient(circle at 10% 20%, #e5e7eb 10%, transparent 11%) repeat,
+        radial-gradient(circle at 90% 30%, #e5e7eb 8%, transparent 9%) repeat,
+        radial-gradient(circle at 30% 80%, #e5e7eb 6%, transparent 7%) repeat;
+    background-size: 180px 180px, 220px 220px, 260px 260px;
+}
+
+/* Vista fila catálogo */
+.product-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 150px;
+    gap: 18px;
+    background: #fff;
+    border-radius: 24px;
+    padding: 18px 20px;
+    box-shadow: 0 6px 18px -6px rgba(0, 0, 0, .08);
+    border: 1px solid #e6ece7;
+    transition: .25s;
+}
+
+.product-row:hover {
+    box-shadow: 0 10px 28px -8px rgba(0, 0, 0, .12);
+}
+
+.product-row .thumb {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #fff;
+}
+
+.product-row .actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+/* Esconde grid en modo fila */
+.catalog-grid.compact {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Etiquetas encima descripción detalle */
+.detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.detail-tags span {
+    background: #e6f6eb;
+    color: #167a3f;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    border: 1px solid #c9e9d4;
+}
+
+/* Carrusel relacionados (horizontal) */
+.related-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 260px;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px;
+}
+
+.related-track>* {
+    scroll-snap-align: start;
+}
+
+.shadow-oval {
+    position: relative;
+}
+
+.shadow-oval::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    width: 70%;
+    height: 26px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, .22), transparent 70%);
+    transform: translateX(-50%);
+    filter: blur(6px);
+    opacity: .55;
+    pointer-events: none;
+}
+
+/* --- Destacados (override) --- */
+.featured-wrapper {
+    margin-bottom: 48px;
+}
+
+.featured-header {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1f2937;
+    margin: 0 0 18px;
+}
+
+.featured-track {
+    display: flex;
+    gap: 22px;
+    overflow-x: auto;
+    padding: 6px 4px 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.featured-track::-webkit-scrollbar {
+    display: none;
+}
+
+.featured-card2 {
+    position: relative;
+    flex: 0 0 260px;
+    height: 170px;
+    border-radius: 20px;
+    padding: 18px 18px 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    scroll-snap-align: start;
+    box-shadow: 0 6px 20px -6px rgba(0, 0, 0, .35);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform .35s, box-shadow .35s;
+}
+
+.featured-card2:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 26px -8px rgba(0, 0, 0, .45);
+}
+
+.featured-card2::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, .65), rgba(0, 0, 0, .2));
+    z-index: 0;
+}
+
+.featured-badge {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    background: #ffffff;
+    color: #0d5e2a;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    z-index: 2;
+    letter-spacing: .5px;
+}
+
+.featured-title {
+    position: relative;
+    z-index: 2;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    line-height: 1.2;
+}
+
+.featured-desc {
+    position: relative;
+    z-index: 2;
+    font-size: 12px;
+    opacity: .85;
+    margin: 0;
+}
+
+.featured-arrows {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.featured-btn-arrow {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    background: #1f2937;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .25s;
+    box-shadow: 0 4px 10px -3px rgba(0, 0, 0, .4);
+}
+
+.featured-btn-arrow:hover {
+    background: #0d5e2a;
+}
+
+/* --- Agregados Recientemente (override) --- */
+.recent-wrapper {
+    margin-bottom: 60px;
+}
+
+.recent-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.recent-header {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0;
+}
+
+.recent-more {
+    background: rgba(255, 255, 255, .15);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    backdrop-filter: blur(2px);
+    transition: .25s;
+}
+
+.recent-more:hover {
+    background: rgba(255, 255, 255, .28);
+}
+
+.recent-section {
+    padding: 42px 30px 54px;
+}
+
+.recent-track {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 8px 4px 6px;
+}
+
+.recent-track::-webkit-scrollbar {
+    height: 0;
+}
+
+.recent-track>* {
+    scroll-snap-align: start;
+}
+
+.recent-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #0d5e2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 18px -6px rgba(0, 0, 0, .4);
+    transition: .25s;
+}
+
+.recent-arrow:hover {
+    background: #e2e8f0;
+}
+
+.recent-arrow.left {
+    left: -6px;
+}
+
+.recent-arrow.right {
+    right: -6px;
+}
+
+/* Compact card ajustes (ya existe ProductCard) */
+.compact .bg-white {
+    box-shadow: 0 6px 16px -6px rgba(0, 0, 0, .35);
+}

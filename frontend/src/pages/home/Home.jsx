@@ -1,24 +1,23 @@
-import { Link } from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React from 'react'
+import HeroBannner from '../../components/home/HeroBannner'
+import FeaturedSection from '../../components/home/FeaturedSection'
+import RecentProducts from '../../components/home/RecentProducts'
+import ReviewsSection from '../../components/home/ReviewsSection'
 
-function Home() {
-    return (
-    <div style={{ textAlign: "center" }}>
-        <h1>Bienvenido a la Página de Inicio</h1>
-        <p>Esta es la página principal de la aplicación.</p>
-                <div style={{display: 'flex', gap: 8, justifyContent: 'center'}}>
-                <Link to="/Login">
-                    <button>Ir a Login</button>
-                </Link>
-                <Link to="/Profile">
-                    <button>Ir a Perfil</button>
-                </Link>
-                <Link to="/dashboard">
-                    <button>Ir al Dashboard</button>
-                </Link>
-                </div>
+/**
+ * Página principal de AgroMarket
+ * Muestra hero banner, productos destacados, recientes y testimonios
+ */
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <HeroBannner />
+      <div className="max-w-7xl mx-auto px-4 space-y-14 py-10">
+        <FeaturedSection />
+        <RecentProducts />
+        <ReviewsSection />
+      </div>
     </div>
-    )
+  )
 }
 
-export default Home
