@@ -35,10 +35,10 @@ export default function Users() {
 
         <div style={{ marginTop: 12, marginBottom: 18 }}>
           <div className="am-dashboard-tabs mb-4">
-            <NavLink to="/dashboard" className={({isActive}) => 'am-tab' + (isActive ? ' active' : '')}>Datos Personales</NavLink>
-            <NavLink to="/dashboard/productos" className={({isActive}) => 'am-tab' + (isActive ? ' active' : '')}>Productos</NavLink>
-            <NavLink to="/dashboard/ordenes" className={({isActive}) => 'am-tab' + (isActive ? ' active' : '')}>Ordenes</NavLink>
-            <NavLink to="/dashboard/usuarios" className={({isActive}) => 'am-tab' + (isActive ? ' active' : '')}>Usuarios</NavLink>
+            <NavLink to="/dashboard" className={({ isActive }) => 'am-tab' + (isActive ? ' active' : '')}>Datos Personales</NavLink>
+            <NavLink to="/dashboard/productos" className={({ isActive }) => 'am-tab' + (isActive ? ' active' : '')}>Productos</NavLink>
+            <NavLink to="/dashboard/ordenes" className={({ isActive }) => 'am-tab' + (isActive ? ' active' : '')}>Ordenes</NavLink>
+            <NavLink to="/dashboard/usuarios" className={({ isActive }) => 'am-tab' + (isActive ? ' active' : '')}>Usuarios</NavLink>
           </div>
         </div>
 

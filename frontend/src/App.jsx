@@ -28,7 +28,7 @@ import Users from './pages/dashboard/Users'
 
 // Checkout
 import Cart from './pages/cart/Cart'
-import CheckoutPage from './pages/checkout/CheckoutPage'; // Asegúrate de que esta línea esté presente
+import CheckoutPage from './pages/checkout/CheckoutPage'; // Asegúrate de importar el nuevo componente
 
 // Layout / Contextos
 import AuthLayout from './layouts/AuthLayout'
