@@ -6,11 +6,11 @@ import Favorites from './Favorites'
 import ShoppingCart from './ShoppingCart'
 import Purchases from './Purchases'
 import HeaderIcons from '../../components/common/HeaderIcons'
+import { useAuth } from '../../contexts/AuthContext.jsx'
 
 export default function Profile() {
-	const [user, setUser] = useState(null)
-	const [loading, setLoading] = useState(true)
 	const [tab, setTab] = useState('personal')
+	const { user } = useAuth()
 
 	// Sincronizar pestaña con fragmento (hash) de la URL
 	useEffect(() => {
@@ -33,52 +33,14 @@ export default function Profile() {
 		return () => window.removeEventListener('hashchange', onHashChange)
 	}, [])
 
-	useEffect(() => {
-		// Carga un usuario mock desde localStorage si existe. En integración real,
-		// reemplazar por `AuthContext` o llamada a API para obtener `user`/`profile`.
-		try {
-			const raw = localStorage.getItem('user')
-			if (raw) setUser(JSON.parse(raw))
-		} catch (e) {
-			// ignore parse error
-		} finally {
-			setLoading(false)
-		}
-	}, [])
-
-	function handleSubmit(profileData) {
-		// Simula actualización local del perfil (sin backend)
-		const updated = { ...(user || {}), profile: profileData }
-		setUser(updated)
-		try {
-			localStorage.setItem('user', JSON.stringify(updated))
-		} catch (e) {
-			console.error('no se pudo guardar user en localStorage', e)
-		}
-		alert('Perfil actualizado (simulado)')
-	}
-
-	function handleCancel() {
-		// Restaurar desde storage o estado inicial
-		try {
-			const raw = localStorage.getItem('user')
-			if (raw) setUser(JSON.parse(raw))
-			else setUser(null)
-		} catch (e) {
-			setUser(null)
-		}
-	}
-
-	if (loading) return <div>Cargando perfil...</div>
-
 	return (
 		<div style={{ display: 'flex', gap: 20, padding: 20 }}>
 			<Sidebar />
 			<main style={{ flex: 1 }}>
 				<div className="profile-header d-flex justify-content-between align-items-center mb-3">
 					<div>
-						<h4 className="mb-0">Bienvenido, {user?.profile?.firstName || 'Usuario'}</h4>
-						<small className="text-muted">Viernes, 25 diciembre 2025</small>
+						<h4 className="mb-0">Bienvenido, {user?.nombre || 'Usuario'}</h4>
+						<small className="text-muted">{user?.correo}</small>
 					</div>
 						<div className="d-flex align-items-center gap-2">
 							<HeaderIcons />

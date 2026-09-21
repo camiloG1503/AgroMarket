@@ -10,7 +10,6 @@ const LoginForm = ({ onSubmit }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		if (onSubmit) onSubmit({ role: active, email, password })
-		console.log('login', { role: active, email, password })
 	}
 
 	return (

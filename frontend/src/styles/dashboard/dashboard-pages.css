@@ -11,7 +11,7 @@
 .am-dashboard-tabs {
   display: flex;
   gap: 12px;
-  background: #f2f4f3;
+  background: #edf5ef;
   padding: 12px;
   border-radius: 18px;
 }
@@ -23,6 +23,9 @@
   color: #6b6b6b;
   min-width: 120px;
   text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background-color .18s ease, color .18s ease, transform .18s ease;
 }
 
 .am-tab.active {
@@ -36,7 +39,7 @@
   border-radius: 10px;
   padding: 22px;
   min-height: 120px;
-  box-shadow: 0 4px 10px rgba(16,24,40,0.03);
+  box-shadow: var(--am-shadow);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -116,9 +119,15 @@
   width: 720px;
   max-width: 95%;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 20px;
   box-shadow: 0 10px 30px rgba(2,6,23,0.2);
+}
+
+@media (max-width: 576px) {
+  .am-dashboard-tabs { gap: 6px; padding: 8px; }
+  .am-tab { min-width: 100px; padding: 9px 12px; }
+  .am-stats-card { min-height: 104px; padding: 18px; }
 }
 
 .am-modal-header { display:flex; justify-content:space-between; align-items:center }
@@ -130,4 +139,7 @@
 .am-modal-body { margin-top:8px }
 .am-modal-footer { margin-top:16px }
 
-
+@media (max-width: 900px) {
+  .am-dashboard-tabs { overflow-x: auto; justify-content: flex-start; }
+  .am-tab { flex: 0 0 auto; }
+}

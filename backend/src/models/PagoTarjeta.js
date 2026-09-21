@@ -11,7 +11,7 @@ const PagoTarjeta = sequelize.define(
     },
     FK_id_pago: { 
         type: DataTypes.INTEGER, 
-        allowNull: false 
+        allowNull: false
     },
     nombre_titular: { 
         type: DataTypes.STRING, 
@@ -28,7 +28,8 @@ const PagoTarjeta = sequelize.define(
         type: DataTypes.STRING(50) 
     },
     CVV: { 
-        type: DataTypes.STRING(4) 
+        type: DataTypes.STRING(4),
+        allowNull: true
     },
     fecha_vencimiento: { 
         type: DataTypes.DATE, 

@@ -18,10 +18,10 @@ function App() {
       <Route path="/Login" element={<Login />} />
       <Route path="/Register" element={<Register />} />
       <Route path="/ForgotPassword" element={<ForgotPassword />} />
-      <Route path="/profile" element={<AuthLayout><Profile /></AuthLayout>} />
-      <Route path="/dashboard" element={<AuthLayout><Dashboard /></AuthLayout>} />
-      <Route path="/dashboard/ordenes" element={<AuthLayout><Ordenes /></AuthLayout>} />
-      <Route path="/dashboard/usuarios" element={<AuthLayout><Users /></AuthLayout>} />
+      <Route path="/profile" element={<AuthLayout protectedRoute><Profile /></AuthLayout>} />
+      <Route path="/dashboard" element={<AuthLayout protectedRoute><Dashboard /></AuthLayout>} />
+      <Route path="/dashboard/ordenes" element={<AuthLayout protectedRoute><Ordenes /></AuthLayout>} />
+      <Route path="/dashboard/usuarios" element={<AuthLayout protectedRoute><Users /></AuthLayout>} />
     </Routes>
     <Footer />
   </>

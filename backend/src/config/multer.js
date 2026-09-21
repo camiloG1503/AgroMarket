@@ -17,7 +17,8 @@ export const uploadImage = (folderName) => {
     },
 
     filename: (req, file, cb) => {
-      const uniqueName = Date.now() + "_" + file.originalname.replace(/\s+/g, "_");
+      const extension = path.extname(file.originalname).toLowerCase();
+      const uniqueName = `${Date.now()}_${Math.random().toString(36).slice(2)}${extension}`;
       cb(null, uniqueName);
     },
   });
@@ -30,5 +31,9 @@ export const uploadImage = (folderName) => {
     cb(null, true);
   };
 
-  return multer({ storage, fileFilter });
+  return multer({
+    storage,
+    fileFilter,
+    limits: { fileSize: 5 * 1024 * 1024, files: 1 },
+  });
 };

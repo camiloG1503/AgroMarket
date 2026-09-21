@@ -1,8 +1,9 @@
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
 import { connectDB } from "../config/db.js";
-import User from "../models/User.js";
-import Rol from "../models/Rol.js";
-import UsuarioRol from "../models/UsuarioRol.js";
+import { User, Rol } from "../models/index.js";
+
+dotenv.config();
 
 const seedUsers = async () => {
   try {
@@ -16,13 +17,14 @@ const seedUsers = async () => {
       });
     }
 
-    const users = [
-      { nombre: "Bairon", apellido: "Gomez", correo: "baironG@agromarket.com", contraseña: "admin123", rol: "admin" },
-      { nombre: "Emerson", apellido: "Chara", correo: "emersonC@agromarket.com", contraseña: "empleado123", rol: "empleado" },
-      { nombre: "Jason", apellido: "Ibarguen", correo: "jasonI@agromarket.com", contraseña: "cliente123", rol: "cliente" },
+    const users = [{ nombre: "Bairon", apellido: "Gomez", correo: process.env.SEED_ADMIN_EMAIL, contraseña: process.env.SEED_ADMIN_PASSWORD, rol: "admin" }
+      ,
+    { nombre: "Emerson", apellido: "Chara", correo: process.env.SEED_EMPLOYEE_EMAIL, contraseña: process.env.SEED_EMPLOYEE_PASSWORD, rol: "empleado" },
+    { nombre: "Jason", apellido: "Ibarguen", correo: process.env.SEED_CLIENT_EMAIL, contraseña: process.env.SEED_CLIENT_PASSWORD, rol: "cliente" },
     ];
 
     for (const u of users) {
+      if (!u.correo || !u.contraseña) throw new Error("Faltan variables SEED_*_EMAIL/SEED_*_PASSWORD");
       const hashedPassword = await bcrypt.hash(u.contraseña, 10);
       const [user] = await User.findOrCreate({
         where: { correo: u.correo },

@@ -5,12 +5,16 @@ import '../../styles/dashboard/dashboard-pages.css'
 import DashboardSidebar from '../../components/dashboard/layout/Sidebar'
 import HeaderIcons from '../../components/common/HeaderIcons'
 import { FaEdit, FaTrashAlt, FaExternalLinkAlt, FaStar } from 'react-icons/fa'
+import { getAdminDashboard } from '../../services/shop.js'
 import AddManufacturerModal from '../../components/dashboard/AddManufacturerModal'
 
 const Dashboard = () => {
   const [showModal, setShowModal] = useState(false)
+  const [stats, setStats] = useState(null)
+  const [error, setError] = useState('')
 
   useEffect(() => {
+    getAdminDashboard().then(setStats).catch((e) => setError(e.message))
     function scrollToHash() {
       const hash = window.location.hash.replace('#', '')
       if (!hash) return
@@ -27,11 +31,9 @@ const Dashboard = () => {
 
   function handleOpenModal() { setShowModal(true) }
   function handleCloseModal() { setShowModal(false) }
-  function handleSubmitManufacturer(data) {
-    console.log('New manufacturer:', data)
-    // TODO: enviar a API
+  function handleSubmitManufacturer() {
     setShowModal(false)
-    alert('Fabricante agregado (simulado)')
+    setError('La creación de fabricantes requiere definir los campos del contrato de marca.')
   }
   return (
     <div style={{ display: 'flex', gap: 20, padding: 20 }}>
@@ -56,19 +58,20 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {error && <div className="alert alert-info" role="status">{error}</div>}
         <section id="inicio">
           <div className="row g-4 mb-4">
           <div className="col-12 col-md-6 col-lg-6">
-            <StatsCard title="Total Vendido" value="$1'500.000" highlighted />
+            <StatsCard title="Total Vendido" value={`$${Number(stats?.totalVentas?.total_ventas || 0).toLocaleString('es-CO')}`} highlighted />
           </div>
           <div className="col-12 col-md-6 col-lg-6">
-            <StatsCard title="Productos Disponibles" value="5.000" />
+            <StatsCard title="Productos Disponibles" value={stats?.topProductos?.length ?? 0} />
           </div>
           <div className="col-12 col-md-6 col-lg-6">
-            <StatsCard title="Usuarios Registrados" value="15.000" />
+            <StatsCard title="Usuarios Registrados" value={stats?.totalUsuarios?.total ?? 0} />
           </div>
           <div className="col-12 col-md-6 col-lg-6">
-            <StatsCard title="Ordenes Pendientes" value="1.000" />
+            <StatsCard title="Ordenes Pendientes" value={stats?.pedidosEstado?.find((item) => item.estado === 'pendiente')?.cantidad ?? 0} />
           </div>
           </div>
         </section>

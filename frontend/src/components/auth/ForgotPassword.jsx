@@ -17,28 +17,29 @@ const ForgotPassword = ({ onSendEmail, onVerifyCode, onReset }) => {
 		e.preventDefault()
 		setError(null)
 		if (onSendEmail) onSendEmail({ role: active, email })
-		console.log('send code to', { role: active, email })
 		setStep('code')
-		setSuccess('Código enviado al correo (simulado).')
+		setSuccess('Si el correo existe, recibirás un token de recuperación.')
 	}
 
 	const handleVerifyCode = (e) => {
 		e.preventDefault()
 		setError(null)
 		if (onVerifyCode) onVerifyCode({ role: active, email, code })
-		console.log('verify code', { role: active, email, code })
 		setStep('reset')
 		setSuccess(null)
 	}
 
-	const handleReset = (e) => {
+	const handleReset = async (e) => {
 		e.preventDefault()
 		setError(null)
 		if (password !== confirm) return setError('Las contraseñas no coinciden')
-		if (onReset) onReset({ role: active, email, code, password })
-		console.log('reset password', { role: active, email, code, password })
-		setStep('done')
-		setSuccess('Contraseña actualizada. Ya puedes iniciar sesión.')
+		try {
+			if (onReset) await onReset({ role: active, email, code, password })
+			setStep('done')
+			setSuccess('Contraseña actualizada. Ya puedes iniciar sesión.')
+		} catch (requestError) {
+			setError(requestError.message)
+		}
 	}
 
 	return (
@@ -95,11 +96,11 @@ const ForgotPassword = ({ onSendEmail, onVerifyCode, onReset }) => {
 					{step === 'code' && (
 						<form onSubmit={handleVerifyCode}>
 							<div className="mb-3">
-								<label className="form-label">Código</label>
-								<input type="text" className="form-control" placeholder="Ingrese el código" value={code} onChange={(e) => setCode(e.target.value)} required />
+								<label className="form-label">Token de recuperación</label>
+								<input type="text" className="form-control" placeholder="Pegue el token recibido por correo" value={code} onChange={(e) => setCode(e.target.value)} required />
 							</div>
 
-							<button type="submit" className="btn btn-success w-100 mb-3">Enviar código</button>
+							<button type="submit" className="btn btn-success w-100 mb-3">Continuar</button>
 						</form>
 					)}
 

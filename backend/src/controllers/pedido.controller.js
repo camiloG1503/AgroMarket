@@ -42,8 +42,10 @@ export const createOrderFromCart = async (req, res) => {
     const userId = req.user.id_usuario;
     const { tipo_entrega, FK_id_empresa = null, coupon_code = null } = req.body;
 
-    if (!tipo_entrega)
+    if (!tipo_entrega) {
+      await t.rollback();
       return res.status(400).json({ message: "tipo_entrega es obligatorio" });
+    }
 
     // Obtener carrito
     const cart = await Carrito.findOne({
@@ -53,19 +55,25 @@ export const createOrderFromCart = async (req, res) => {
       lock: t.LOCK.UPDATE
     });
 
-    if (!cart || cart.Detalle_carrito.length === 0)
+    if (!cart || cart.Detalle_carrito.length === 0) {
+      await t.rollback();
       return res.status(400).json({ message: "El carrito está vacío" });
+    }
 
     // Validar stock
     for (const item of cart.Detalle_carrito) {
       const prod = item.Producto;
-      if (!prod)
+      if (!prod) {
+        await t.rollback();
         return res.status(400).json({ message: `Producto no encontrado` });
+      }
 
-      if (prod.stock < item.cantidad)
+      if (prod.stock < item.cantidad) {
+        await t.rollback();
         return res.status(400).json({
           message: `Stock insuficiente para ${prod.nombre}`
         });
+      }
     }
 
     // Calcular subtotal
@@ -81,12 +89,16 @@ export const createOrderFromCart = async (req, res) => {
         transaction: t
       });
 
-      if (!coupon || coupon.estado !== "activo")
+      if (!coupon || coupon.estado !== "activo") {
+        await t.rollback();
         return res.status(400).json({ message: "Cupón inválido o inactivo" });
+      }
 
       const now = new Date();
-      if (!(now >= new Date(coupon.fecha_inicio) && now <= new Date(coupon.fecha_fin)))
+      if (!(now >= new Date(coupon.fecha_inicio) && now <= new Date(coupon.fecha_fin))) {
+        await t.rollback();
         return res.status(400).json({ message: "Cupón expirado" });
+      }
 
       const pct = parseFloat(coupon.porcentaje_descuento);
       discountAmount = Number((subtotal * (pct / 100)).toFixed(2));
@@ -170,7 +182,7 @@ export const getOrderById = async (req, res) => {
 
     if (!order) return res.status(404).json({ message: "Pedido no encontrado" });
 
-    const isAdmin = req.user.roles.includes("admin");
+    const isAdmin = req.user.rol === "admin";
     if (!isAdmin && order.FK_id_usuario !== req.user.id_usuario)
       return res.status(403).json({ message: "No autorizado" });
 

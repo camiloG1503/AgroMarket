@@ -11,7 +11,7 @@ export const processPayment = async (req, res) => {
     if (!pedido) return res.status(404).json({ message: "Pedido no encontrado" });
 
     // Validar que el pedido pertenezca al usuario (si no es admin)
-    if (!req.user.roles.includes("admin")) {
+    if (req.user.rol !== "admin") {
       if (pedido.FK_id_usuario !== req.user.id_usuario) {
         return res.status(403).json({ message: "No autorizado" });
       }
@@ -29,14 +29,18 @@ export const processPayment = async (req, res) => {
     if (metodo === "tarjeta") {
       if (!tarjeta)
         return res.status(400).json({ message: "Faltan datos de tarjeta" });
+      const cardNumber = String(tarjeta.numero_tarjeta || "").replace(/\D/g, "");
+      if (cardNumber.length < 12 || !tarjeta.fecha_vencimiento || !tarjeta.nombre_titular) {
+        return res.status(400).json({ message: "Datos de tarjeta inválidos" });
+      }
 
       await PagoTarjeta.create({
         FK_id_pago: pago.id_pago,
         nombre_titular: tarjeta.nombre_titular,
-        numero_tarjeta: tarjeta.numero_tarjeta,
+        numero_tarjeta: `************${cardNumber.slice(-4)}`,
         tipo_tarjeta: tarjeta.tipo_tarjeta,
         franquicia: tarjeta.franquicia,
-        CVV: tarjeta.CVV,
+        CVV: null,
         fecha_vencimiento: tarjeta.fecha_vencimiento
       });
     }
@@ -73,6 +77,11 @@ export const getPaymentForOrder = async (req, res) => {
     });
 
     if (!pago) return res.status(404).json({ message: "Pago no encontrado" });
+    const pedido = await Pedido.findByPk(idPedido, { attributes: ["FK_id_usuario"] });
+    if (!pedido) return res.status(404).json({ message: "Pedido no encontrado" });
+    if (req.user.rol !== "admin" && pedido.FK_id_usuario !== req.user.id_usuario) {
+      return res.status(403).json({ message: "No autorizado" });
+    }
 
     return res.json(pago);
 

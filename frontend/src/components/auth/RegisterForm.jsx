@@ -31,8 +31,6 @@ const RegisterForm = ({ onSubmit }) => {
 
     if (onSubmit) {
         onSubmit(payload)
-    } else {
-        console.log('register', payload)
     }
 
     }

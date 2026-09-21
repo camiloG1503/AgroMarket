@@ -108,6 +108,9 @@ export const updateProfile = async (req, res) => {
   try {
     const { nombre, apellido } = req.body;
 
+    if (!nombre?.trim() || !apellido?.trim()) {
+      return res.status(400).json({ message: "Nombre y apellido son obligatorios" });
+    }
     const user = await User.findByPk(req.user.id_usuario);
     if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
 
@@ -122,6 +125,7 @@ export const updateProfile = async (req, res) => {
 // Subir foto de perfil
 export const uploadProfilePicture = async (req, res) => {
   try {
+    if (!req.file) return res.status(400).json({ message: "Debe adjuntar una imagen" });
     const user = await User.findByPk(req.user.id_usuario);
     if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
 

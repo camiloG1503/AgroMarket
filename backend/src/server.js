@@ -28,6 +28,7 @@ const startServer = async () => {
         process.on('SIGTERM', shutdown);
     }catch(error){
         console.error("Error al iniciar el servidor:", error.message);      
+        process.exitCode = 1;
     }
 };
 

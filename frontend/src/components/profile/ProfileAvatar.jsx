@@ -10,12 +10,7 @@ export default function ProfileAvatar({ src = null, alt = 'Avatar', onUpload }) 
   function handleFile(e) {
     const file = e.target.files && e.target.files[0]
     if (!file) return
-    const reader = new FileReader()
-    reader.onload = () => {
-      const dataUrl = reader.result
-      if (onUpload) onUpload(dataUrl)
-    }
-    reader.readAsDataURL(file)
+    if (onUpload) onUpload(file)
   }
 
   return (

@@ -2,6 +2,7 @@ import Resena from "../models/Resena.js";
 import Producto from "../models/Producto.js";
 import Pedido from "../models/Pedido.js";
 import DetallePedido from "../models/DetallePedido.js";
+import User from "../models/User.js";
 
 // Validar si el usuario realmente compró el producto
 const userPurchasedProduct = async (userId, productId) => {
@@ -76,7 +77,11 @@ export const updateReview = async (req, res) => {
       return res.status(403).json({ message: "No puedes editar esta reseña" });
     }
 
-    await review.update(req.body);
+    const { calificacion, comentario } = req.body;
+    if (calificacion !== undefined && (Number(calificacion) < 1 || Number(calificacion) > 5)) {
+      return res.status(400).json({ message: "Calificación debe ser entre 1 y 5" });
+    }
+    await review.update({ calificacion, comentario });
     return res.json({ message: "Reseña actualizada", review });
   } catch (error) {
     console.error("updateReview:", error);

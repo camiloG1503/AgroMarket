@@ -4,8 +4,25 @@ import RegisterForm from '../../components/auth/RegisterForm'
 import AuthLayout from '../../layouts/AuthLayout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../styles/auth/auth-pages.css'
+import { register } from '../../services/auth.js'
+import { useAuth } from '../../contexts/AuthContext.jsx'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 function Register() {
+    const { setSession } = useAuth()
+    const navigate = useNavigate()
+    const [error, setError] = useState('')
+    const handleSubmit = async (payload) => {
+        try {
+            setError('')
+            const data = await register(payload)
+            setSession(data)
+            navigate('/profile')
+        } catch (requestError) {
+            setError(requestError.message)
+        }
+    }
 	return (
 		<AuthLayout>
 			<header className="am-auth-header d-flex align-items-center">
@@ -27,7 +44,8 @@ function Register() {
 				<div className="row g-0">
 					<div className="col-12 col-md-6 auth-left-wrapper">
 						<div style={{ width: '100%', maxWidth: 520 }}>
-							<RegisterForm />
+							<RegisterForm onSubmit={handleSubmit} />
+                            {error && <div className="alert alert-danger mt-3" role="alert">{error}</div>}
 
 							<div className="text-center mt-3">
 								<Link to="/">Ir a Home</Link>

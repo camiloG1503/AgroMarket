@@ -4,8 +4,30 @@ import ForgotPasswordForm from '../../components/auth/ForgotPassword'
 import AuthLayout from '../../layouts/AuthLayout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../../styles/auth/auth-pages.css'
+import { forgotPassword, resetPassword } from '../../services/auth.js'
+import { useState } from 'react'
 
 function ForgotPassword() {
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
+    const handleSendEmail = async ({ email }) => {
+        try {
+            setError('')
+            setSuccess('')
+            await forgotPassword(email)
+        } catch (requestError) {
+            setError(requestError.message)
+        }
+    }
+    const handleReset = async ({ code, password }) => {
+        try {
+            setError('')
+            await resetPassword(code, password)
+        } catch (requestError) {
+            setError(requestError.message)
+            throw requestError
+        }
+    }
     return (
         <AuthLayout>
             <header className="am-auth-header d-flex align-items-center">
@@ -27,7 +49,9 @@ function ForgotPassword() {
                 <div className="row g-0">
                     <div className="col-12 col-md-6 auth-left-wrapper">
                         <div style={{ width: '100%', maxWidth: 520 }}>
-                            <ForgotPasswordForm />
+                            <ForgotPasswordForm onSendEmail={handleSendEmail} onReset={handleReset} />
+                            {error && <div className="alert alert-danger mt-3" role="alert">{error}</div>}
+                            {success && <div className="alert alert-success mt-3" role="alert">{success}</div>}
                         </div>
                     </div>
 

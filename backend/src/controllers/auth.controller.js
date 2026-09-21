@@ -1,8 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-import User from "../models/User.js";
-import Rol from "../models/Rol.js";
+import { User, Rol } from "../models/index.js";
 import { generateToken } from "../utils/generateToken.js";
 
 /* ==========================
@@ -13,12 +12,17 @@ export const register = async (req, res) => {
     const { nombre, apellido, correo, contraseña } = req.body;
     if (!nombre || !apellido || !correo || !contraseña)
       return res.status(400).json({ message: "Todos los campos son obligatorios" });
+    if (typeof correo !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo))
+      return res.status(400).json({ message: "El correo no es válido" });
+    if (typeof contraseña !== "string" || contraseña.length < 8)
+      return res.status(400).json({ message: "La contraseña debe tener al menos 8 caracteres" });
 
-    const existing = await User.findOne({ where: { correo } });
+    const normalizedEmail = correo.trim().toLowerCase();
+    const existing = await User.findOne({ where: { correo: normalizedEmail } });
     if (existing) return res.status(400).json({ message: "El correo ya está registrado" });
 
     const hashed = await bcrypt.hash(contraseña, 10);
-    const user = await User.create({ nombre, apellido, correo, contraseña: hashed });
+    const user = await User.create({ nombre: nombre.trim(), apellido: apellido.trim(), correo: normalizedEmail, contraseña: hashed });
 
     const rolCliente = await Rol.findOne({ where: { nombre_rol: "cliente" } });
     if (rolCliente) await user.addRol(rolCliente);
@@ -45,11 +49,12 @@ export const login = async (req, res) => {
   try {
     const { correo, contraseña } = req.body;
 
-    const user = await User.findOne({ where: { correo }, include: Rol });
-    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+    if (!correo || !contraseña) return res.status(400).json({ message: "Correo y contraseña son obligatorios" });
+    const user = await User.findOne({ where: { correo: correo.trim().toLowerCase() }, include: Rol });
+    if (!user) return res.status(401).json({ message: "Credenciales inválidas" });
 
     const valid = await bcrypt.compare(contraseña, user.contraseña);
-    if (!valid) return res.status(401).json({ message: "Contraseña incorrecta" });
+    if (!valid) return res.status(401).json({ message: "Credenciales inválidas" });
 
     const roles = user.Rols?.map((r) => r.nombre_rol) || ["cliente"];
     const token = generateToken({
@@ -91,8 +96,8 @@ export const forgotPassword = async (req, res) => {
     /*
     const baseUrl = process.env.FRONTEND_URL || "http://localhost:5173";
     const resetUrl = ${baseUrl}/reset-password/${token};
-    */ 
-   
+    */
+
     // Crear transporte SMTP real
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
@@ -144,10 +149,17 @@ export const resetPassword = async (req, res) => {
     if (!token || !nueva_contrasena)
       return res.status(400).json({ message: "Token y nueva contraseña son requeridos" });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch {
+      return res.status(400).json({ message: "Token inválido o expirado" });
+    }
     const user = await User.findByPk(decoded.id_usuario);
     if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
 
+    if (typeof nueva_contrasena !== "string" || nueva_contrasena.length < 8)
+      return res.status(400).json({ message: "La contraseña debe tener al menos 8 caracteres" });
     const hashed = await bcrypt.hash(nueva_contrasena, 10);
     user.contraseña = hashed;
     await user.save();
@@ -173,6 +185,8 @@ export const changePassword = async (req, res) => {
       return res.status(400).json({ message: "Todos los campos son obligatorios" });
     if (nueva_contrasena !== confirmar_contrasena)
       return res.status(400).json({ message: "Las contraseñas no coinciden" });
+    if (nueva_contrasena.length < 8)
+      return res.status(400).json({ message: "La nueva contraseña debe tener al menos 8 caracteres" });
 
     const match = await bcrypt.compare(contrasena_actual, user.contraseña);
     if (!match) return res.status(401).json({ message: "Contraseña actual incorrecta" });

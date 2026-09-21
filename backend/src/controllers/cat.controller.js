@@ -76,6 +76,10 @@ export const addItemToCart = async (req, res) => {
     const userId = req.user.id_usuario;
     const { productId } = req.params;
     const { quantity = 1 } = req.body;
+    if (!Number.isInteger(quantity) || quantity < 1) {
+      await t.rollback();
+      return res.status(400).json({ message: "Quantity must be a positive integer" });
+    }
 
     // comprobar producto y stock
     const product = await Producto.findByPk(productId);
@@ -98,6 +102,10 @@ export const addItemToCart = async (req, res) => {
     let item = await DetalleCarrito.findOne({ where: { FK_id_carrito: cart.id_carrito, FK_id_producto: productId }, transaction: t });
 
     if (item) {
+      if (product.stock < item.cantidad + quantity) {
+        await t.rollback();
+        return res.status(400).json({ message: "Insufficient stock" });
+      }
       item.cantidad += quantity;
       await item.save({ transaction: t });
     } else {
@@ -125,7 +133,7 @@ export const updateCartItem = async (req, res) => {
     const { productId } = req.params;
     const { quantity } = req.body;
 
-    if (quantity <= 0) {
+    if (!Number.isInteger(quantity) || quantity <= 0) {
       await t.rollback();
       return res.status(400).json({ message: "Quantity must be greater than 0" });
     }

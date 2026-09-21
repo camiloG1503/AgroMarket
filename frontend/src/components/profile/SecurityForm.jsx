@@ -8,15 +8,24 @@ export default function SecurityForm({ onSubmit, onCancel }) {
     setForm(prev => ({ ...prev, [name]: value }))
     }
 
-    function handleSubmit(e) {
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
+
+    async function handleSubmit(e) {
     e.preventDefault()
+    setError('')
+    setSuccess('')
     if (form.password !== form.confirm) {
-        alert('Las contraseñas no coinciden')
+        setError('Las contraseñas no coinciden')
         return
     }
-    if (onSubmit) onSubmit(form)
-    alert('Cambio de contraseña simulado')
-    setForm({ current: '', password: '', confirm: '' })
+    try {
+        if (onSubmit) await onSubmit(form)
+        setSuccess('Contraseña actualizada correctamente')
+        setForm({ current: '', password: '', confirm: '' })
+    } catch (requestError) {
+        setError(requestError.message)
+    }
     }
 
     function handleCancel() {
@@ -42,6 +51,8 @@ export default function SecurityForm({ onSubmit, onCancel }) {
         </div>
 
         <div className="mt-3">
+        {error && <div className="alert alert-danger" role="alert">{error}</div>}
+        {success && <div className="alert alert-success" role="alert">{success}</div>}
         <button type="submit" className="btn btn-success me-2">Actualizar</button>
         <button type="button" onClick={handleCancel} className="btn btn-outline-secondary">Cancelar</button>
         </div>

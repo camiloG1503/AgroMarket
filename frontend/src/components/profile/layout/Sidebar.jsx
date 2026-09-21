@@ -1,13 +1,15 @@
 import React from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { FaHome, FaUser, FaHeart, FaShoppingCart, FaBoxOpen, FaSignOutAlt } from 'react-icons/fa'
+import { useAuth } from '../../../contexts/AuthContext.jsx'
 
 export default function Sidebar() {
   const navigate = useNavigate()
   const location = useLocation()
+  const { logout } = useAuth()
 
   function handleLogout() {
-    try { localStorage.removeItem('user') } catch (e) {}
+    logout()
     navigate('/')
   }
 
